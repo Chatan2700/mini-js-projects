@@ -1,0 +1,15 @@
+------------------------------------------------
+Add hover effect to the dots [X]               |
+Add a caption below the slider [X]             |
+                                               |
+                                               |
+reset the interval when user click on dot [X]  |
+Code cleanup []                                |
+                                               |
+                                               |
+make it responsive [] (media queries)          |
+Lazy load images?                              |
+                                               |
+------------------------------------------------
+
+

@@ -9,7 +9,7 @@ images.forEach((img, index) => {
   let image = document.createElement("img");
   image.src = `/image-slider/${img}.jpg`;
   image.alt = `slide ${index + 1}`;
-  console.log(`Image uploaded: ${image.alt}`);
+  // console.log(`Image uploaded: ${image.alt}`);
   sliderContainer.appendChild(image);
 
   let dot = document.createElement("div");
@@ -25,6 +25,8 @@ dots.forEach((dot, index) => {
     currentIndex = index;
     nextImg();
     updateDots();
+    clearInterval(timer); // clears the interval
+    timer = setInterval(updateSLider, 5000); //set a new interval
   });
 });
 
@@ -38,11 +40,13 @@ function nextImg() {
   sliderContainer.style.transform = `translateX(${-currentIndex * 100}%)`;
 }
 
-setInterval(() => {
+function updateSLider() {
   currentIndex = (currentIndex + 1) % images.length;
   nextImg();
   updateDots();
-}, 5000);
+}
+
+let timer = setInterval(updateSLider, 5000);
 
 //another way to to the loop
 // for (const [index, element] of images.entries()) {
