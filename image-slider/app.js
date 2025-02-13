@@ -18,6 +18,22 @@ images.forEach((img, index) => {
   dotsContainer.appendChild(dot);
 });
 
+const dots = document.querySelectorAll(".dot");
+
+dots.forEach((dot, index) => {
+  dot.addEventListener("click", () => {
+    currentIndex = index;
+    nextImg();
+    updateDots();
+  });
+});
+
+function updateDots() {
+  dots.forEach((dot, i) => {
+    dot.classList.toggle("dot-active", i === currentIndex);
+  });
+}
+
 function nextImg() {
   sliderContainer.style.transform = `translateX(${-currentIndex * 100}%)`;
 }
@@ -25,7 +41,8 @@ function nextImg() {
 setInterval(() => {
   currentIndex = (currentIndex + 1) % images.length;
   nextImg();
-}, 3000);
+  updateDots();
+}, 5000);
 
 //another way to to the loop
 // for (const [index, element] of images.entries()) {
