@@ -22,3 +22,4 @@ Code cleanup improvements
 - Fixed the structure of the code (initialization, event handlers and the slider functions)
 - Created a reusable functionf for the timer 
 
+Pictures by: @khwampa on X
