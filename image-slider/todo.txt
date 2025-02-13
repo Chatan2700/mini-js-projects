@@ -4,7 +4,7 @@ Add a caption below the slider [X]             |
                                                |
                                                |
 reset the interval when user click on dot [X]  |
-Code cleanup []                                |
+Code cleanup [X]                                |
                                                |
                                                |
 make it responsive [] (media queries)          |
@@ -12,4 +12,13 @@ Lazy load images?                              |
                                                |
 ------------------------------------------------
 
+
+Code cleanup improvements
+
+- Removed magic numebers 
+- better performance with event delegation for dots, which prevents DOM re-querying which basically means that instead each dot have a listener, each dot element inside the dots-container referes to the function that handles dot clicks.
+- Fixed accessibility for dots
+- Implemented error handling, (not really important for this small project but still a good practice)
+- Fixed the structure of the code (initialization, event handlers and the slider functions)
+- Created a reusable functionf for the timer 
 

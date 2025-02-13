@@ -1,59 +1,68 @@
-// list of images
-const images = ["1", "2", "3"];
+// configs
+const IMAGES = ["1", "2", "3"];
+const SLIDER_INTERVAL = 5000;
+//DOM Elements
 const sliderContainer = document.querySelector(".slider-container");
 const dotsContainer = document.querySelector(".dots-container");
+if (!sliderContainer || !dotsContainer) {
+  throw new Error("Slider/Dots container not found!");
+}
 
 let currentIndex = 0;
+const dots = [];
 
-images.forEach((img, index) => {
-  let image = document.createElement("img");
+IMAGES.forEach((img, index) => {
+  //Create IMAGES
+  const image = document.createElement("img");
   image.src = `/image-slider/${img}.jpg`;
-  image.alt = `slide ${index + 1}`;
-  // console.log(`Image uploaded: ${image.alt}`);
+  image.alt = `Slide ${index + 1}`;
   sliderContainer.appendChild(image);
 
-  let dot = document.createElement("div");
+  //Create DOTS
+  const dot = document.createElement("div");
   dot.classList.add("dot");
+  dot.setAttribute("role", "button");
+  dot.setAttribute("tabindex", "0");
   if (index === 0) dot.classList.add("dot-active");
   dotsContainer.appendChild(dot);
+  dots.push(dot);
 });
 
-const dots = document.querySelectorAll(".dot");
+const handleDotClick = (index) => {
+  currentIndex = index;
+  nextImg();
+  updateDots();
+  resetTimer();
+};
 
-dots.forEach((dot, index) => {
-  dot.addEventListener("click", () => {
-    currentIndex = index;
-    nextImg();
-    updateDots();
-    clearInterval(timer); // clears the interval
-    timer = setInterval(updateSLider, 5000); //set a new interval
-  });
+// Event delegation for DOTS
+dotsContainer.addEventListener("click", (e) => {
+  const dotIndex = dots.indexOf(e.target);
+  if (dotIndex !== -1) handleDotClick(dotIndex);
 });
 
+// sets the active dot to change img
 function updateDots() {
   dots.forEach((dot, i) => {
     dot.classList.toggle("dot-active", i === currentIndex);
   });
 }
 
+// handles img transitions
 function nextImg() {
   sliderContainer.style.transform = `translateX(${-currentIndex * 100}%)`;
 }
 
-function updateSLider() {
-  currentIndex = (currentIndex + 1) % images.length;
+// updates the slider for the automatic timer change
+function updateSlider() {
+  currentIndex = (currentIndex + 1) % IMAGES.length;
   nextImg();
   updateDots();
 }
 
-let timer = setInterval(updateSLider, 5000);
-
-//another way to to the loop
-// for (const [index, element] of images.entries()) {
-//   console.log(`Index ${index + 1}, Element ${element}`);
-// }
-
-// to ensure the looping of an index
-// for (let i = 0; i < 10; i++) {
-//   console.log(i % 3); // Always cycles through 0, 1, 2, 0, 1, 2...
-// }
+let timer;
+const resetTimer = () => {
+  clearInterval(timer);
+  timer = setInterval(updateSlider, SLIDER_INTERVAL);
+};
+resetTimer();
